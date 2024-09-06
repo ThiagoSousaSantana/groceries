@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS price (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    price DECIMAL(10, 2) NOT NULL,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    product_id UUID NOT NULL REFERENCES product(id),
+    store_id UUID NOT NULL REFERENCES store(id)
+);
