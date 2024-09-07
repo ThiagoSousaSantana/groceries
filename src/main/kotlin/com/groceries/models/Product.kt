@@ -8,7 +8,7 @@ import jakarta.persistence.OneToMany
 import java.math.BigDecimal
 import java.util.UUID
 
-@Entity(name = "products")
+@Entity
 data class Product(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
