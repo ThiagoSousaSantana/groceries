@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.OneToMany
 import java.math.BigDecimal
+import java.sql.Timestamp
 import java.util.UUID
 
 @Entity
@@ -18,8 +19,8 @@ data class Product(
     val bestPrice: BigDecimal,
 
     @OneToMany(mappedBy = "product")
-    val prices: List<Price>,
+    val prices: List<Price> = emptyList(),
 
-    val updatedAt: Long,
-    val createdAt: Long
+    val updatedAt: Timestamp = Timestamp(System.currentTimeMillis()),
+    val createdAt: Timestamp = Timestamp(System.currentTimeMillis())
 )

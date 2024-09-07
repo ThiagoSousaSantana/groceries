@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS invoice (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    total DECIMAL(10, 2) NOT NULL,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    store_id UUID NOT NULL REFERENCES store(id)
+);
+
+CREATE TABLE IF NOT EXISTS invoice_products (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    price DECIMAL(10, 2) NOT NULL,
+    quantity DECIMAL(10, 3) NOT NULL,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    invoice_id UUID NOT NULL REFERENCES invoice(id),
+    product_id UUID NOT NULL REFERENCES product(id)
+);

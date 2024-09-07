@@ -1,18 +1,21 @@
 package com.groceries.models
 
 import jakarta.persistence.*
+import java.math.BigDecimal
 import java.sql.Timestamp
 import java.util.UUID
 
 @Entity
-data class Store(
+data class InvoiceProducts(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null,
-    val name: String,
-    val address: String,
+    val quantity: BigDecimal,
+    val price: BigDecimal,
+    @ManyToOne
+    val product: Product,
+    @ManyToOne
+    val invoice: Invoice,
     val createdAt: Timestamp = Timestamp(System.currentTimeMillis()),
-    val updatedAt: Timestamp = Timestamp(System.currentTimeMillis()),
-    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
-    val prices: List<Price> = emptyList()
+    val updatedAt: Timestamp = Timestamp(System.currentTimeMillis())
 )
