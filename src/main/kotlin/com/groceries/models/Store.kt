@@ -9,6 +9,7 @@ data class Store(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null,
+    val cnpj: String,
     val name: String,
     val address: String,
     val createdAt: Timestamp = Timestamp(System.currentTimeMillis()),

@@ -25,7 +25,7 @@ class InvoiceService(
     }
 
     fun createInvoice(invoiceRequest: InvoiceRequest): Invoice {
-        val store = storeService.getStore(invoiceRequest.storeId)
+        val store = storeService.getStoreByCNPJ(invoiceRequest.storeCNPJ)
 
         val invoice = invoiceRepository.save(Invoice(
             total = invoiceRequest.total,

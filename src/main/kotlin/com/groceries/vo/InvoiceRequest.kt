@@ -4,6 +4,6 @@ import java.math.BigDecimal
 
 data class InvoiceRequest (
     val total: BigDecimal,
-    val storeId: String,
+    val storeCNPJ: String,
     val products: List<InvoiceProductsRequest>
 )

@@ -21,12 +21,12 @@ class StoreController(val storeService: StoreService) {
 
     @PostMapping
     fun createStore(@RequestBody store: StoreRequest): Store {
-        return storeService.createStore(Store(name = store.name, address = store.address))
+        return storeService.createStore(Store(cnpj = store.cnpj, name = store.name, address = store.address))
     }
 
     @PutMapping("/{id}")
     fun updateStore(@PathVariable id: String, @RequestBody store: StoreRequest): Store {
-        return storeService.updateStore(id, Store(name = store.name, address = store.address))
+        return storeService.updateStore(id, Store(cnpj = store.cnpj, name = store.name, address = store.address))
     }
 
     @DeleteMapping("/{id}")

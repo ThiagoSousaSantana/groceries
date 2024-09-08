@@ -38,6 +38,7 @@ class InvoiceController(val invoiceService: InvoiceService) {
             store = StoreSmallResponse(
                 id = invoice.store.id.toString(),
                 name = invoice.store.name,
+                cnpj = invoice.store.cnpj,
                 address = invoice.store.address
             ),
             products = invoice.products.map {

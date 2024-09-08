@@ -16,6 +16,6 @@ data class Price(
     @ManyToOne
     val product: Product,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     val store: Store
 )

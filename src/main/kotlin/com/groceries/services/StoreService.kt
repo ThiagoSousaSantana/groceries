@@ -38,4 +38,8 @@ class StoreService(val storeRepository: StoreRepository) {
 
         storeRepository.deleteById(UUID.fromString(id))
     }
+
+    fun getStoreByCNPJ(storeCNPJ: String): Store {
+        return storeRepository.getStoreByCnpj(storeCNPJ).orElseThrow { throw RuntimeException("Store not found") }
+    }
 }
