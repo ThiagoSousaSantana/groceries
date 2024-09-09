@@ -14,6 +14,6 @@ data class Store(
     val address: String,
     val createdAt: Timestamp = Timestamp(System.currentTimeMillis()),
     val updatedAt: Timestamp = Timestamp(System.currentTimeMillis()),
-    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "store")
     val prices: List<Price> = emptyList()
 )

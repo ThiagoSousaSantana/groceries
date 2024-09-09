@@ -5,6 +5,7 @@ import com.groceries.models.InvoiceProducts
 import com.groceries.repositories.InvoiceProductsRepository
 import com.groceries.repositories.InvoiceRepository
 import com.groceries.vo.InvoiceRequest
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -24,6 +25,7 @@ class InvoiceService(
         return invoiceRepository.findById(UUID.fromString(id)).orElseThrow { throw RuntimeException("Invoice not found") }
     }
 
+    @Transactional
     fun createInvoice(invoiceRequest: InvoiceRequest): Invoice {
         val store = storeService.getStoreByCNPJ(invoiceRequest.storeCNPJ)
 

@@ -4,6 +4,7 @@ import com.groceries.models.Invoice
 import com.groceries.models.Product
 import com.groceries.repositories.ProductRepository
 import com.groceries.vo.InvoiceProductsRequest
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.sql.Timestamp
@@ -27,6 +28,7 @@ class ProductService(
         return productRepository.save(product)
     }
 
+    @Transactional
     fun processProduct(productRequest: InvoiceProductsRequest, invoice: Invoice): Product{
         val productOptional = productRepository.findBySku(productRequest.sku)
 
