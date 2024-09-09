@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS product (
     best_price DECIMAL(10, 2) NOT NULL,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    best_price_store_id UUID REFERENCES store(id),
     CONSTRAINT unique_sku UNIQUE (sku)
 );

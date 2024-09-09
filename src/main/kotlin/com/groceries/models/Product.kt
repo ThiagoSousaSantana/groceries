@@ -4,6 +4,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
 import java.math.BigDecimal
 import java.sql.Timestamp
@@ -20,6 +21,8 @@ data class Product(
 
     @OneToMany(mappedBy = "product")
     val prices: List<Price> = emptyList(),
+    @ManyToOne
+    val bestPriceStore: Store? = null,
 
     val updatedAt: Timestamp = Timestamp(System.currentTimeMillis()),
     val createdAt: Timestamp = Timestamp(System.currentTimeMillis())

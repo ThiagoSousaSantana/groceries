@@ -2,6 +2,8 @@ package com.groceries.services
 
 import com.groceries.models.Invoice
 import com.groceries.models.Product
+import com.groceries.models.Store
+import com.groceries.models.product.ProductWithBestPriceStore
 import com.groceries.repositories.ProductRepository
 import com.groceries.vo.InvoiceProductsRequest
 import jakarta.transaction.Transactional
@@ -16,8 +18,8 @@ class ProductService(
     val priceService: PriceService
 ) {
 
-    fun getProducts(): List<Product> {
-        return productRepository.findAll()
+    fun listProducts(): List<ProductWithBestPriceStore> {
+        return productRepository.findAllProducts()
     }
 
     fun getProduct(id: String): Product {
@@ -35,14 +37,15 @@ class ProductService(
         val product = if (productOptional.isPresent) {
             val product = productOptional.get()
             if (product.bestPrice > productRequest.price) {
-                updateProductBestPrice(product, productRequest.price)
+                updateProductBestPrice(product, productRequest.price, invoice.store)
             }
             product
         } else {
             createProduct(Product(
                 sku = productRequest.sku,
                 name = productRequest.name,
-                bestPrice = productRequest.price
+                bestPrice = productRequest.price,
+                bestPriceStore = invoice.store
             ))
         }
 
@@ -50,10 +53,11 @@ class ProductService(
         return product
     }
 
-    private fun updateProductBestPrice(product: Product, price: BigDecimal) {
+    private fun updateProductBestPrice(product: Product, price: BigDecimal, store: Store) {
         productRepository.save(product.copy(
             bestPrice = price,
-            updatedAt = Timestamp(System.currentTimeMillis())
+            updatedAt = Timestamp(System.currentTimeMillis()),
+            bestPriceStore = store
         ))
     }
 }

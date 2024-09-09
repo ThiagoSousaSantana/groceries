@@ -6,5 +6,13 @@ spring:
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
     jpa:
+      show-sql: ${JPA_SHOW_SQL:true}
+      properties:
+        hibernate:
+          format_sql: true
       hibernate:
           ddl-auto: validate
+logging:
+  level:
+    org.hibernate.SQL: ${LOGGING_LEVEL_SQL:DEBUG}
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

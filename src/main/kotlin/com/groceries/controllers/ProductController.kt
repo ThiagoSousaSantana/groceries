@@ -1,10 +1,8 @@
 package com.groceries.controllers
 
 import com.groceries.models.Product
-import com.groceries.models.Store
 import com.groceries.services.ProductService
-import com.groceries.services.StoreService
-import com.groceries.vo.StoreRequest
+import com.groceries.vo.StoreSmallResponse
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -12,12 +10,28 @@ import org.springframework.web.bind.annotation.*
 class ProductController(val storeService: ProductService) {
 
     @GetMapping
-    fun getStores(): List<Product> {
-        return storeService.getProducts()
+    fun listProducts(): List<ProductResponse> {
+        val products = storeService.listProducts()
+
+        return products.map {
+            ProductResponse(
+                id = it.id,
+                sku = it.sku,
+                name = it.name,
+                bestPrice = it.bestPrice,
+                updatedAt = it.updatedAt,
+                bestPriceStore = StoreSmallResponse(
+                    id = it.bestPriceStore.id,
+                    name = it.bestPriceStore.name,
+                    cnpj = it.bestPriceStore.cnpj,
+                    address = it.bestPriceStore.address
+                )
+            )
+        }
     }
 
     @GetMapping("/{id}")
-    fun getStore(@PathVariable id: String): Product {
+    fun getProductById(@PathVariable id: String): Product {
         return storeService.getProduct(id)
     }
 }
