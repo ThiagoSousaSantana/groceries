@@ -9,7 +9,7 @@ import com.groceries.vo.InvoiceProductsRequest
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
-import java.sql.Timestamp
+import java.time.LocalDateTime
 import java.util.*
 
 @Service
@@ -23,7 +23,8 @@ class ProductService(
     }
 
     fun getProduct(id: String): Product {
-        return productRepository.findById(UUID.fromString(id)).orElseThrow { throw RuntimeException("Product not found") }
+        return productRepository.findById(UUID.fromString(id))
+            .orElseThrow { throw RuntimeException("Product not found") }
     }
 
     fun createProduct(product: Product): Product {
@@ -31,7 +32,7 @@ class ProductService(
     }
 
     @Transactional
-    fun processProduct(productRequest: InvoiceProductsRequest, invoice: Invoice): Product{
+    fun processProduct(productRequest: InvoiceProductsRequest, invoice: Invoice): Product {
         val productOptional = productRepository.findBySku(productRequest.sku)
 
         val product = if (productOptional.isPresent) {
@@ -41,12 +42,14 @@ class ProductService(
             }
             product
         } else {
-            createProduct(Product(
-                sku = productRequest.sku,
-                name = productRequest.name,
-                bestPrice = productRequest.price,
-                bestPriceStore = invoice.store
-            ))
+            createProduct(
+                Product(
+                    sku = productRequest.sku,
+                    name = productRequest.name,
+                    bestPrice = productRequest.price,
+                    bestPriceStore = invoice.store
+                )
+            )
         }
 
         priceService.createPrice(product, invoice)
@@ -54,10 +57,12 @@ class ProductService(
     }
 
     private fun updateProductBestPrice(product: Product, price: BigDecimal, store: Store) {
-        productRepository.save(product.copy(
-            bestPrice = price,
-            updatedAt = Timestamp(System.currentTimeMillis()),
-            bestPriceStore = store
-        ))
+        productRepository.save(
+            product.copy(
+                bestPrice = price,
+                updatedAt = LocalDateTime.now(),
+                bestPriceStore = store
+            )
+        )
     }
 }

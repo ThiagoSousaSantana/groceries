@@ -22,17 +22,20 @@ class InvoiceService(
     }
 
     fun getInvoice(id: String): Invoice {
-        return invoiceRepository.findById(UUID.fromString(id)).orElseThrow { throw RuntimeException("Invoice not found") }
+        return invoiceRepository.findById(UUID.fromString(id))
+            .orElseThrow { throw RuntimeException("Invoice not found") }
     }
 
     @Transactional
     fun createInvoice(invoiceRequest: InvoiceRequest): Invoice {
         val store = storeService.getStoreByCNPJ(invoiceRequest.storeCNPJ)
 
-        val invoice = invoiceRepository.save(Invoice(
-            total = invoiceRequest.total,
-            store = store
-        ))
+        val invoice = invoiceRepository.save(
+            Invoice(
+                total = invoiceRequest.total,
+                store = store
+            )
+        )
 
         val invoiceProductsList = invoiceRequest.products.map { productRequest ->
             val product = productService.processProduct(productRequest, invoice)

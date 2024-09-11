@@ -3,7 +3,7 @@ package com.groceries.services
 import com.groceries.models.Store
 import com.groceries.repositories.StoreRepository
 import org.springframework.stereotype.Service
-import java.sql.Timestamp
+import java.time.LocalDateTime
 import java.util.*
 
 @Service
@@ -24,10 +24,12 @@ class StoreService(val storeRepository: StoreRepository) {
     fun updateStore(id: String, store: Store): Store {
         val persistedStore = getStore(id)
 
-        return storeRepository.save(persistedStore.copy(
-            name = store.name,
-            address = store.address,
-            updatedAt = Timestamp(System.currentTimeMillis()))
+        return storeRepository.save(
+            persistedStore.copy(
+                name = store.name,
+                address = store.address,
+                updatedAt = LocalDateTime.now()
+            )
         )
     }
 

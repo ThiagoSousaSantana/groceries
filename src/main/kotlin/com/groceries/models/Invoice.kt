@@ -2,7 +2,7 @@ package com.groceries.models
 
 import jakarta.persistence.*
 import java.math.BigDecimal
-import java.sql.Timestamp
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -15,6 +15,6 @@ data class Invoice(
     val store: Store,
     @OneToMany(mappedBy = "invoice")
     val products: List<InvoiceProducts> = emptyList(),
-    val createdAt: Timestamp = Timestamp(System.currentTimeMillis()),
-    val updatedAt: Timestamp = Timestamp(System.currentTimeMillis())
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime = LocalDateTime.now()
 )

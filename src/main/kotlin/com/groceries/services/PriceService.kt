@@ -12,11 +12,13 @@ class PriceService(val priceRepository: PriceRepository) {
 
     @Transactional
     fun createPrice(product: Product, invoice: Invoice): Price {
-        return priceRepository.save(Price(
-            product = product,
-            store = invoice.store,
-            price = product.bestPrice
-        ))
+        return priceRepository.save(
+            Price(
+                product = product,
+                store = invoice.store,
+                price = product.bestPrice
+            )
+        )
     }
 
 }

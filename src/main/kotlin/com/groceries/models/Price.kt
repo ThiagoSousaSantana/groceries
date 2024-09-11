@@ -2,8 +2,8 @@ package com.groceries.models
 
 import jakarta.persistence.*
 import java.math.BigDecimal
-import java.sql.Timestamp
-import java.util.UUID
+import java.time.LocalDateTime
+import java.util.*
 
 @Entity
 data class Price(
@@ -11,7 +11,7 @@ data class Price(
     @GeneratedValue(strategy = GenerationType.UUID)
     val id: UUID? = null,
     val price: BigDecimal,
-    val createdAt: Timestamp = Timestamp(System.currentTimeMillis()),
+    val createdAt: LocalDateTime = LocalDateTime.now(),
 
     @ManyToOne
     val product: Product,

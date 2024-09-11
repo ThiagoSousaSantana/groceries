@@ -1,8 +1,8 @@
 package com.groceries.models
 
 import jakarta.persistence.*
-import java.sql.Timestamp
-import java.util.UUID
+import java.time.LocalDateTime
+import java.util.*
 
 @Entity
 data class Store(
@@ -12,8 +12,8 @@ data class Store(
     val cnpj: String,
     val name: String,
     val address: String,
-    val createdAt: Timestamp = Timestamp(System.currentTimeMillis()),
-    val updatedAt: Timestamp = Timestamp(System.currentTimeMillis()),
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    val updatedAt: LocalDateTime = LocalDateTime.now(),
     @OneToMany(mappedBy = "store")
     val prices: List<Price> = emptyList()
 )

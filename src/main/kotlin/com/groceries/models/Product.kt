@@ -1,14 +1,9 @@
 package com.groceries.models
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.OneToMany
+import jakarta.persistence.*
 import java.math.BigDecimal
-import java.sql.Timestamp
-import java.util.UUID
+import java.time.LocalDateTime
+import java.util.*
 
 @Entity
 data class Product(
@@ -24,6 +19,6 @@ data class Product(
     @ManyToOne
     val bestPriceStore: Store? = null,
 
-    val updatedAt: Timestamp = Timestamp(System.currentTimeMillis()),
-    val createdAt: Timestamp = Timestamp(System.currentTimeMillis())
+    val updatedAt: LocalDateTime = LocalDateTime.now(),
+    val createdAt: LocalDateTime = LocalDateTime.now()
 )
