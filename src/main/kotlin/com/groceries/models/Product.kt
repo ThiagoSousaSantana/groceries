@@ -18,7 +18,10 @@ data class Product(
     val prices: List<Price> = emptyList(),
     @ManyToOne
     val bestPriceStore: Store? = null,
-
+    @ManyToOne
+    val group: ProductGroup? = null,
+    @ManyToOne
+    val brand: Brand? = null,
     val updatedAt: LocalDateTime = LocalDateTime.now(),
     val createdAt: LocalDateTime = LocalDateTime.now()
 )
