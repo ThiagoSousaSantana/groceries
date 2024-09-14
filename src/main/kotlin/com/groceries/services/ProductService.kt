@@ -1,5 +1,6 @@
 package com.groceries.services
 
+import com.groceries.exeptions.EntityNotFoundException
 import com.groceries.models.Invoice
 import com.groceries.models.Product
 import com.groceries.models.Store
@@ -24,7 +25,7 @@ class ProductService(
 
     fun getProduct(id: String): Product {
         return productRepository.findById(UUID.fromString(id))
-            .orElseThrow { throw RuntimeException("Product not found") }
+            .orElseThrow { throw EntityNotFoundException("Product") }
     }
 
     fun createProduct(product: Product): Product {

@@ -2,13 +2,18 @@ package com.groceries.controllers
 
 import com.groceries.models.Product
 import com.groceries.services.ProductService
+import com.groceries.vo.ProductResponse
 import com.groceries.vo.StoreSmallResponse
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.*
 
+@Tag(name = "Products")
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/v1/products")
 class ProductController(val storeService: ProductService) {
 
+    @Operation(summary = "List all products")
     @GetMapping
     fun listProducts(): List<ProductResponse> {
         val products = storeService.listProducts()
@@ -30,6 +35,7 @@ class ProductController(val storeService: ProductService) {
         }
     }
 
+    @Operation(summary = "Get product by id")
     @GetMapping("/{id}")
     fun getProductById(@PathVariable id: String): Product {
         return storeService.getProduct(id)

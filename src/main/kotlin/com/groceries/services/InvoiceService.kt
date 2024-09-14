@@ -1,5 +1,6 @@
 package com.groceries.services
 
+import com.groceries.exeptions.EntityNotFoundException
 import com.groceries.models.Invoice
 import com.groceries.models.InvoiceProducts
 import com.groceries.repositories.InvoiceProductsRepository
@@ -23,7 +24,7 @@ class InvoiceService(
 
     fun getInvoice(id: String): Invoice {
         return invoiceRepository.findById(UUID.fromString(id))
-            .orElseThrow { throw RuntimeException("Invoice not found") }
+            .orElseThrow { throw EntityNotFoundException("Invoice") }
     }
 
     @Transactional

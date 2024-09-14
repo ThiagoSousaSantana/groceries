@@ -6,17 +6,24 @@ import com.groceries.vo.InvoiceProductResponse
 import com.groceries.vo.InvoiceRequest
 import com.groceries.vo.InvoiceResponse
 import com.groceries.vo.StoreSmallResponse
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.net.URI
 
+@Tag(name = "Invoices")
 @RestController
-@RequestMapping("/invoices")
+@RequestMapping("/v1/invoices")
 class InvoiceController(val invoiceService: InvoiceService) {
 
+    @Operation(summary = "Get all invoices")
     @GetMapping
     fun getInvoices(): List<InvoiceResponse> {
         return invoiceService.getInvoices().map { mapToResponse(it) }
     }
 
+    @Operation(summary = "Get invoice by id")
     @GetMapping("/{id}")
     fun getInvoice(@PathVariable id: String): InvoiceResponse {
         val invoice = invoiceService.getInvoice(id)
@@ -24,11 +31,13 @@ class InvoiceController(val invoiceService: InvoiceService) {
         return mapToResponse(invoice)
     }
 
+    @Operation(summary = "Create invoice")
     @PostMapping
-    fun createInvoice(@RequestBody invoiceRequest: InvoiceRequest): InvoiceResponse {
+    fun createInvoice(@RequestBody invoiceRequest: InvoiceRequest): ResponseEntity<InvoiceResponse> {
         val invoice = invoiceService.createInvoice(invoiceRequest)
 
-        return mapToResponse(invoice)
+        val response = mapToResponse(invoice)
+        return ResponseEntity.created(URI.create("/invoices/${invoice.id}")).body(response)
     }
 
     private fun mapToResponse(invoice: Invoice): InvoiceResponse {

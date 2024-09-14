@@ -1,6 +1,5 @@
-package com.groceries.controllers
+package com.groceries.vo
 
-import com.groceries.vo.StoreSmallResponse
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.*

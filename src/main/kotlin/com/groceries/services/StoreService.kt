@@ -1,5 +1,6 @@
 package com.groceries.services
 
+import com.groceries.exeptions.EntityNotFoundException
 import com.groceries.models.Store
 import com.groceries.repositories.StoreRepository
 import org.springframework.stereotype.Service
@@ -42,6 +43,6 @@ class StoreService(val storeRepository: StoreRepository) {
     }
 
     fun getStoreByCNPJ(storeCNPJ: String): Store {
-        return storeRepository.getStoreByCnpj(storeCNPJ).orElseThrow { throw RuntimeException("Store not found") }
+        return storeRepository.getStoreByCnpj(storeCNPJ).orElseThrow { throw EntityNotFoundException("Store") }
     }
 }
