@@ -50,11 +50,11 @@ sonarqube {
         property("sonar.projectKey", "groceries-api")
         property("sonar.organization", "thiago-santana")
         property("sonar.host.url", "https://sonarcloud.io")
-        property(
-            "sonar.coverage.jacoco.xmlReportPaths",
-            "${layout.buildDirectory}/reports/jacoco/test/jacocoTestReport.xml"
-        )
     }
+}
+
+tasks.sonar.configure {
+    dependsOn(tasks.test)
 }
 
 jacoco {

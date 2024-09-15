@@ -1,4 +1,4 @@
-name: SonarCloud Analysis
+name: Test and Build
 
 on:
   push:
@@ -31,8 +31,4 @@ jobs:
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonarqube \
-          -Dsonar.projectKey=groceries-api \
-          -Dsonar.organization=thiago-santana \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonar -Dsonar.projectKey=groceries-api -Dsonar.organization=thiago-santana -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }}
