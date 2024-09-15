@@ -12,12 +12,14 @@ import java.util.UUID
 interface ProductRepository : JpaRepository<Product, UUID> {
     fun findBySku(sku: String): Optional<Product>
 
-    @Query("SELECT " +
-            "new com.groceries.models.product.ProductWithBestPriceStore(" +
-            "p.id, p.sku, p.name, p.bestPrice, p.updatedAt, " +
-            "new com.groceries.models.store.StoreMainData(" +
-            "s.id, s.name, s.cnpj, s.address)) " +
-            "FROM Product p " +
-            "INNER JOIN Store s ON p.bestPriceStore.id = s.id")
+    @Query(
+        "SELECT " +
+                "new com.groceries.models.product.ProductWithBestPriceStore(" +
+                "p.id, p.sku, p.name, p.bestPrice, p.updatedAt, " +
+                "new com.groceries.models.store.StoreMainData(" +
+                "s.id, s.name, s.cnpj, s.address)) " +
+                "FROM Product p " +
+                "INNER JOIN Store s ON p.bestPriceStore.id = s.id"
+    )
     fun findAllProducts(): List<ProductWithBestPriceStore>
 }
