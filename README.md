@@ -1,6 +1,6 @@
 # Groceries Backend API
 
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ThiagoSousaSantana_groceries&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ThiagoSousaSantana_groceries)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=groceries-api&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ThiagoSousaSantana_groceries)
 
 ## Overview
 
