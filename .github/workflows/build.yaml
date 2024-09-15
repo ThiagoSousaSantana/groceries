@@ -30,4 +30,4 @@ jobs:
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonar -Dsonar.projectKey=groceries-api -Dsonar.organization=thiago-santana -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonar -Pcoverage -Dsonar.projectKey=groceries-api -Dsonar.organization=thiago-santana -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }}
